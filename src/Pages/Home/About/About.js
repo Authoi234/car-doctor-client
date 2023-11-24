@@ -6,8 +6,9 @@ const About = () => {
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
-                <div className='w-1/2 '>
-                <img src="https://i.pinimg.com/originals/5f/25/39/5f253967e80d5e65add6d2d33c676655.jpg" className="max-w-sm rounded-lg shadow-2xl" />
+                <div className='w-1/2 relative'>
+                <img src={person} alt='' className="w-4/5 h-full rounded-lg shadow-2xl" />
+                <img src={parts} alt='' className="rounded-lg w-3/5 right-5 top-1/2 border-8 shadow-2xl absolute " />
                 </div>
                 <div className='w-1/2'>
                     <p className="text-2xl text-orange-600 font-bold">About Us</p>

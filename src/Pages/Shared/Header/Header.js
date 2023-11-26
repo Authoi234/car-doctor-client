@@ -20,7 +20,7 @@ const Header = () => {
                     </ul>
                 </div>
                 <Link to="/" className="btn btn-ghost text-xl">
-                    <img src={logo} alt="" />
+                    <img src={logo} className='hover:scale-125 duration-300 hover:backdrop-contrast-150' alt="" />
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -29,7 +29,7 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-            <button className="btn btn-outline btn-warning">APPOINTMENT</button>
+            <button className="btn btn-outline btn-warning hover:scale-110 duration-500">APPOINTMENT</button>
             
             </div>
         </div>

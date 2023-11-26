@@ -8,7 +8,7 @@ const BannerItem = ({ slide }) => {
             <div className='carousel-img'>
                 <img src={image} className="w-full rounded-xl" alt='' />
             </div>
-            <div className="absolute flex justify-end transform -translate-y-1/2 left-24 top-1/4">
+            <div className="absolute flex justify-end transform -translate-y-1/2 left-24 top-1/3">
                 <h1 className="text-5xl font-bold text-white">
                     Affordable <br />
                     Price for Car <br />
@@ -18,7 +18,7 @@ const BannerItem = ({ slide }) => {
             <div className="absolute flex justify-end transform -translate-y-1/2 w-2/5 left-24 top-1/2">
                 <p className='text-white text-xl'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
             </div>
-            <div className="absolute flex justify-start transform -translate-y-1/2 w-2/5 left-24 top-3/4">
+            <div className="absolute flex justify-start transform -translate-y-1/2 w-2/5 left-24 top-2/3">
                 <button className="btn btn-warning mr-5">Warning</button>
                 <button className="btn btn-outline btn-warning">Warning</button>
             </div>

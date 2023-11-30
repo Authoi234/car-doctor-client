@@ -48,15 +48,13 @@ const CoreFeatures = () => {
             <div className='grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 justify-center items-center'>
                 {
                     features.map(feature => <>
-                        <div key={feature.id} className="w-40 p-3 text-center block justify-center border border-slate-300 p-5 items-center m-5 shadow-xl">
+                        <div key={feature.id} className="w-40 p-5 text-center block justify-center border border-slate-300  items-center m-5 shadow-xl">
                             <img className='w-4/5' src={feature.img} alt="" />
                             <p className='text-2xl  break-words text-black'>{feature.title}</p>
                         </div>
                     </>)
                 }
             </div>
-            
-            
         </div>
     );
 };

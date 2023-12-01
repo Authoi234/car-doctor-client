@@ -3,6 +3,11 @@ import img from '../../assets/images/login/login.svg';
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+
+    const handleSignUp = event => {
+        event.PreventDefault();
+    }
+
     return (
         <div className="hero w-full my-20">
             <div className="hero-content grid md:grid-cols-2 gap-20 flex-col lg:flex-row">
@@ -10,7 +15,7 @@ const Signup = () => {
                     <img className="w-3/4" src={img} alt="" />
                 </div>
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-20 text-center">
-                    <h1 className="text-5xl font-bold">Login</h1>
+                    <h1 className="text-5xl font-bold">Sign Up</h1>
                     <form className="card-body">
                         <div className="form-control">
                             <label className="label">
@@ -28,11 +33,11 @@ const Signup = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input type="submit" value="Login" onClick={handleLogin} className="btn btn-primary" />
+                            <input type="submit" value="Sign Up" onClick={handleSignUp} className="btn btn-primary" />
                         </div>
                     </form>
                     <p className="font-bold text-center">
-                        New to Car Doctor <Link className="text-orange-600" to={'/signup'}>Signup</Link>
+                        Already have an account <Link className="text-orange-600" to={'/login'}>Login</Link>
                     </p>
                 </div>
             </div>

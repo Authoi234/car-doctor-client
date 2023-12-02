@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg';
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+    const {} = useContext()
 
     const handleSignUp = event => {
         event.PreventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const name = form.name.value;
     }
 
     return (
@@ -39,7 +44,7 @@ const SignUp = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input type="submit" value="Sign Up" onClick={handleSignUp} className="btn btn-primary" />
+                            <input type="submit" value="Sign Up" onSubmit={handleSignUp} className="btn btn-primary" />
                         </div>
                     </form>
                     <p className="font-bold text-center">

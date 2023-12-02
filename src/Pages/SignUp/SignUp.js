@@ -2,7 +2,7 @@ import React from 'react';
 import img from '../../assets/images/login/login.svg';
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const SignUp = () => {
 
     const handleSignUp = event => {
         event.PreventDefault();
@@ -45,4 +45,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default SignUp;

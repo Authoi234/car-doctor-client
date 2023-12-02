@@ -1,16 +1,26 @@
 import React, { useContext } from 'react';
 import img from '../../assets/images/login/login.svg';
 import { Link } from "react-router-dom";
+import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 
 const SignUp = () => {
-    const {} = useContext()
-
+    const { createUser } = useContext(AuthContext);
+    
     const handleSignUp = event => {
-        event.PreventDefault();
+        event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        const name = form.name.value;
+        console.log(email , password); 
+
+        createUser(email, password)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(error => {
+            console.error(error);
+        })
     }
 
     return (
@@ -44,7 +54,7 @@ const SignUp = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input type="submit" value="Sign Up" onSubmit={handleSignUp} className="btn btn-primary" />
+                            <button type="submit" onSubmit={handleSignUp} className="btn btn-primary">Sign Up</button>
                         </div>
                     </form>
                     <p className="font-bold text-center">

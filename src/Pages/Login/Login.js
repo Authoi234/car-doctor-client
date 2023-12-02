@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
 
     const handleLogin = event => {
-        event.PreventDefault();
+        event.preventDefault();
     }
 
     return (
@@ -33,7 +33,7 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input type="submit" value="Login" onClick={handleLogin} className="btn btn-primary" />
+                            <input type="submit" value="Login" onSubmit={handleLogin} className="btn btn-primary" />
                         </div>
                     </form>
                     <p className="font-bold text-center">

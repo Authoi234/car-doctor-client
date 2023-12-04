@@ -1,26 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import img from '../../assets/images/login/login.svg';
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext);
-    
+    const { createUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
+    const [errorMassage, setErrorMassage] = useState('');
+
     const handleSignUp = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email , password); 
 
         createUser(email, password)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-        })
-        .catch(error => {
-            console.error(error);
-        })
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                setErrorMassage(error.message);
+            })
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                setErrorMassage(error.message);
+            })
+    }
+
+    const handleFacebookSignIn = () => {
+        signInWithFacebook()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                setErrorMassage(error.message);
+            })
     }
 
     return (
@@ -31,7 +54,7 @@ const SignUp = () => {
                 </div>
                 <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-20 text-center">
                     <h1 className="text-5xl font-bold">Sign Up</h1>
-                    <form className="card-body">
+                    <form className="card-body" onSubmit={handleSignUp}>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>
@@ -50,13 +73,20 @@ const SignUp = () => {
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                             <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                <a href='/' className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button type="submit" onSubmit={handleSignUp} className="btn btn-primary">Sign Up</button>
+                            <input type="submit" className="btn btn-primary" value="Sign Up" />
                         </div>
                     </form>
+                    <div className='flex justify-center items-center'>
+                        <FaGoogle className='text-3xl text-white bg-blue-600 p-1 rounded-full cursor-pointer mr-2' onClick={handleGoogleSignIn}></FaGoogle>
+                        <FaFacebookF className='text-3xl text-white bg-blue-600 p-1 rounded-full cursor-pointer' onClick={handleFacebookSignIn}></FaFacebookF>
+                    </div>
+                    <p className='font-bold text-red-500'>
+                        {errorMassage}
+                    </p>
                     <p className="font-bold text-center">
                         Already have an account <Link className="text-orange-600" to={'/login'}>Login</Link>
                     </p>

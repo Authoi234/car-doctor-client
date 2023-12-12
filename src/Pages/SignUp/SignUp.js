@@ -7,6 +7,7 @@ import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 const SignUp = () => {
     const { createUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
     const [errorMassage, setErrorMassage] = useState('');
+    
 
     const handleSignUp = event => {
         event.preventDefault();

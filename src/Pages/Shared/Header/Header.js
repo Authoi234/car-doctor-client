@@ -5,7 +5,17 @@ import { FaUser } from "react-icons/fa6";
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Header = () => {
-    const {user} = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+        .then(() => {
+            console.log('User Signed Out');
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+    }
 
     const menuItems = <>
         <li className="font-semibold"><Link to={'/'}>Home</Link></li>
@@ -35,7 +45,7 @@ const Header = () => {
             <div className="navbar-end">
                 {user ? <div className='flex items-center'>
                     <FaUser className='m-5 border rounded-full border-red-500 text-3xl text-white bg-gradient-to-r from-blue-500 via-pink-600 to-purple-600 tooltip-primary'></FaUser>
-                    <button className="btn btn-primary">Logout</button>
+                    <button className="btn btn-primary" onClick={handleLogOut}>Logout</button>
                 </div> : <div></div>}
                 <button className="btn btn-outline btn-warning hover:scale-110 duration-500 mx-3">APPOINTMENT</button>
             </div>

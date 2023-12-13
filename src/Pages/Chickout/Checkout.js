@@ -4,27 +4,40 @@ import { AuthContext } from './../../Context/AuthProvider/AuthProvider';
 
 const Checkout = () => {
     const { _id, title, price } = useLoaderData();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    console.log(useLoaderData());
 
     const handlePlaceOrder = (event) => {
         event.preventDefault();
         const form = event.target;
         const name = `${form.firstName} ${form.lastName}`;
-        const email = user?.email || 'unregistered'
+        const email = user?.email || 'unregistered';
+        const phone = form.phone.value;
+        const message = form.message.value;
+
+        const order = {
+            service: _id,
+            serviceName: title,
+            price,
+            customer: name,
+            email,
+            phone,
+            message
+        }
     }
-    
+
     return (
         <div>
             <form onSubmit={handlePlaceOrder}>
-                <h2 className='text-4xl'>You are about to order: {title}</h2>
-                <p className="text-3xl">Price: {price}</p>
+                    <h2 className='text-5xl font-bold'>You are about to order: {title}</h2>
+                    <p className="text-4xl text-orange-600">Price: {price}</p>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 my-5'>
                     <input name='firstName' type="text" placeholder="First Name" className="input input-bordered w-full" />
                     <input name='lastName' type="text" placeholder="Last Name" className="input input-bordered w-full" />
                     <input name='phone' type="text" placeholder="Your Phone" className="input input-bordered w-full" />
-                    <input name='email' type="text" placeholder="Your Email" defaultValue={user?.email } className="input input-bordered w-full" readOnly />
+                    <input name='email' type="text" placeholder="Your Email" defaultValue={user?.email} className="input input-bordered w-full" readOnly />
                 </div>
-                <textarea className="textarea textarea-bordered h-24 w-full mb-5" placeholder="Your Message"></textarea>
+                <textarea name='message' className="textarea textarea-bordered h-24 w-full mb-5" placeholder="Your Message"></textarea>
                 <input className='btn bg-red-600 w-full hover:bg-red-600 hover:brightness-125 text-white text-2xl' type="submit" value="Place your order" />
             </form>
         </div>

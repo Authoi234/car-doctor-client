@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import img from '../../assets/images/login/login.svg';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 
 const SignUp = () => {
     const { createUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
     const [errorMassage, setErrorMassage] = useState('');
+    const navigate = useNavigate();
     
 
     const handleSignUp = event => {
@@ -20,6 +21,8 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
+                setErrorMassage('');
+                navigate('/');
             })
             .catch(error => {
                 setErrorMassage(error.message);
@@ -31,6 +34,8 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setErrorMassage('');
+                navigate('/');
             })
             .catch(error => {
                 setErrorMassage(error.message);
@@ -42,6 +47,8 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setErrorMassage('');
+                navigate('/');
             })
             .catch(error => {
                 setErrorMassage(error.message);

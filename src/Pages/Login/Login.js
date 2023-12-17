@@ -1,14 +1,20 @@
 import { React, useContext, useState } from "react";
 import img from '../../assets/images/login/login.svg';
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider/AuthProvider";
-import { FaFacebookF, FaGoogle } from "react-icons/fa6";
+import { FaEye, FaFacebookF, FaGoogle } from "react-icons/fa6";
 
 const Login = () => {
     const { signInUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
     const [errorMassage, setErrorMassage] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || '/'
 
     const handleLogin = event => {
+        event.preventDefault();
+
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
@@ -17,7 +23,31 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 form.reset();
+                setErrorMassage('');
                 console.log(user);
+                                
+                const currentUser = {
+                    email: user.email
+                }
+
+                console.log(currentUser);
+
+                // get jwt token
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type' : 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    // local storage is the easiest but not the best place to store jwt token
+                    localStorage.setItem( 'car-doctor-token', data.token);
+                })
+
+                // navigate(from, { replace: true });
             })
             .catch(error => {
                 setErrorMassage(error.message);
@@ -29,6 +59,8 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                setErrorMassage('');
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 setErrorMassage(error.message);
@@ -39,12 +71,15 @@ const Login = () => {
         signInWithFacebook()
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                setErrorMassage('');
+
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 setErrorMassage(error.message);
             })
     }
+
 
     return (
         <div className="hero w-full my-20">
@@ -71,7 +106,7 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <input type="submit" value="Login" className="btn btn-primary" />
+                            <button type="submit" className="btn btn-primary">Login</button>
                         </div>
                     </form>
                     <div className='flex justify-center items-center'>

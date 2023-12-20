@@ -7,7 +7,7 @@ const Orders = () => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+        fetch(`https://car-doctor-server-authoi.vercel.app/orders?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
             }
@@ -27,7 +27,7 @@ const Orders = () => {
         const proceed = window.confirm('Are you sure, you want to cancel this order');
 
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://car-doctor-server-authoi.vercel.app/orders/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
@@ -46,7 +46,7 @@ const Orders = () => {
     }
 
     const handleStatusUpdate = (id) => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://car-doctor-server-authoi.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 "content-type": "application/json",

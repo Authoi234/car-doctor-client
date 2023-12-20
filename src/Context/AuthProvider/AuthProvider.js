@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { FacebookAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import app from './../../firebase/firebase.config';
 
 export const AuthContext = createContext();
@@ -7,7 +7,8 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
+const githubProvider = new GithubAuthProvider();
+export const facebookProvider = new FacebookAuthProvider();
 
 const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
@@ -32,11 +33,14 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, facebookProvider);
     }
 
+    const signInWithGithub = () => {
+        return signInWithPopup(auth, githubProvider);
+    }
+
     const logOut = () =>{
         localStorage.removeItem('car-doctor-token');
         return signOut(auth);
     }
-
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -56,6 +60,7 @@ const AuthProvider = ({children}) => {
         signInUser,
         signInWithGoogle,
         signInWithFacebook,
+        signInWithGithub,
         logOut
     }
 

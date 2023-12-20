@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import img from '../../assets/images/login/login.svg';
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
-import { FaFacebookF, FaGoogle } from "react-icons/fa6";
+import { setAuthToken } from '../../api/auth';
 
 const SignUp = () => {
-    const { createUser, signInWithGoogle, signInWithFacebook } = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
     const [errorMassage, setErrorMassage] = useState('');
     const navigate = useNavigate();
     
@@ -23,32 +23,7 @@ const SignUp = () => {
                 form.reset();
                 setErrorMassage('');
                 navigate('/');
-            })
-            .catch(error => {
-                setErrorMassage(error.message);
-            })
-    }
-
-    const handleGoogleSignIn = () => {
-        signInWithGoogle()
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                setErrorMassage('');
-                navigate('/');
-            })
-            .catch(error => {
-                setErrorMassage(error.message);
-            })
-    }
-
-    const handleFacebookSignIn = () => {
-        signInWithFacebook()
-            .then(result => {
-                const user = result.user;
-                console.log(user);
-                setErrorMassage('');
-                navigate('/');
+                setAuthToken(user);
             })
             .catch(error => {
                 setErrorMassage(error.message);
@@ -89,10 +64,6 @@ const SignUp = () => {
                             <input type="submit" className="btn btn-primary" value="Sign Up" />
                         </div>
                     </form>
-                    <div className='flex justify-center items-center'>
-                        <FaGoogle className='text-3xl text-white bg-blue-600 p-1 rounded-full cursor-pointer mr-2' onClick={handleGoogleSignIn}></FaGoogle>
-                        <FaFacebookF className='text-3xl text-white bg-blue-600 p-1 rounded-full cursor-pointer' onClick={handleFacebookSignIn}></FaFacebookF>
-                    </div>
                     <p className='font-bold text-red-500'>
                         {errorMassage}
                     </p>

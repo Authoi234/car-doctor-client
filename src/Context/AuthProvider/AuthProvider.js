@@ -33,6 +33,7 @@ const AuthProvider = ({children}) => {
     }
 
     const logOut = () =>{
+        localStorage.removeItem('car-doctor-token');
         return signOut(auth);
     }
 
@@ -41,7 +42,7 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             console.log(currentUser);
             setUser(currentUser);
-            setTimeout(() => setLoading(false), 5000)
+            setTimeout(() => setLoading(false), 1000)
         });
         return ()=>{
             return unsubscribe();

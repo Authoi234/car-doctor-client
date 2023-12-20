@@ -3,7 +3,7 @@ import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import OrderRow from './OrderRow';
 
 const Orders = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -12,16 +12,26 @@ const Orders = () => {
                 authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
             }
         })
-            .then(res => res.json())
-            .then(data => setOrders(data))
-    }, [user?.email])
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    return logOut();
+                }
+                return res.json()
+            })
+            .then(data => {
+                setOrders(data)
+            })
+    }, [user?.email, logOut])
 
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to cancel this order');
 
         if (proceed) {
             fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
+                }
             })
                 .then(res => res.json())
                 .then(data => {
@@ -39,23 +49,25 @@ const Orders = () => {
         fetch(`http://localhost:5000/orders/${id}`, {
             method: 'PATCH',
             headers: {
-                "content-type" : "application/json"
+                "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
             },
-            body: JSON.stringify({status: 'Approved'})
+            body: JSON.stringify({ status: 'Approved' })
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data.modifiedCount > 0){
-                const remaining = orders.filter(odr => odr._id !== id);
-                const approving = orders.find(odr => odr._id === id);
-                approving.status = 'Approved';
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.modifiedCount > 0) {
+                    const remaining = orders.filter(odr => odr._id !== id);
+                    const approving = orders.find(odr => odr._id === id);
+                    approving.status = 'Approved';
 
-                const newOrders = [ approving , ...remaining];
-                setOrders(newOrders);
-            }
-        })
+                    const newOrders = [approving, ...remaining];
+                    setOrders(newOrders);
+                }
+            })
     }
+    console.log(orders);
 
     return (
         <div>
@@ -70,7 +82,7 @@ const Orders = () => {
                                 Service
                             </th>
                             <th>Favorite Color</th>
-                            <th>Message</th>    
+                            <th>Message</th>
                         </tr>
                     </thead>
                     <tbody>

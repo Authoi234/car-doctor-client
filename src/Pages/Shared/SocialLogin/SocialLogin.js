@@ -42,7 +42,7 @@ const SocialLogin = () => {
         //         navigator('/');
         //     })
         //     .catch(err => console.log(err))
-        alert('This is on updating')
+        alert('this is updating');
     }
 
     return (

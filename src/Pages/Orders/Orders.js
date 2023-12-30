@@ -49,7 +49,7 @@ const Orders = () => {
         fetch(`https://car-doctor-server-authoi.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
-                "content-type": "application/json",
+                "content-type": "application/json", 
                 authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
             },
             body: JSON.stringify({ status: 'Approved' })
